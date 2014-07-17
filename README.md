@@ -1,7 +1,7 @@
 Project1_EarthQuake
 ===================
 
-First Project for cs3114.
+First Project for cs3114 Data Structures and Algorithms.
 
 CS3114 (Fall 2013)
 PROGRAMMING ASSIGNMENT #1
@@ -9,7 +9,8 @@ Due Wednesday, September 18 @ 11:00 PM for 100 points
 Due Tuesday, September 17 @ 11:00 PM for 10 point bonus
 Updated: 9/11/2013
 Assignment:
-This is the first phase of a project to create an earthquake notication system. In Project 2,
+
+  This is the first phase of a project to create an earthquake notication system. In Project 2,
 you will add a spatial data structure to speed up some of the key operations.
 Your project will receive input from two data streams. The rst stream comes from an earth-
 quake tracking service provider (USGS), which provides information on the time, location, and
@@ -18,13 +19,17 @@ related to users of the notication system. These requests will be things like: 
 database; remove a watcher; and query for recent, large earthquakes. The project can be viewed
 as a discrete event simulation, where events (either earthquakes or user requests) take place at
 discrete times, and are processed in the order that they occur.
+
 Java Code:
-For this project, you may only use standard Java classes, Java code that you have written
+
+  For this project, you may only use standard Java classes, Java code that you have written
 yourself, and Java code supplied by the CS3114 instructor (see the class website for the distribution).
 You may not use other third-party Java code. You may not use any built-in Java list classes for
 this assignment.
+
 Data Structures:
-For this project you will implement three data structures. The rst is a simple linked list of
+
+  For this project you will implement three data structures. The rst is a simple linked list of
 watchers who have signed up for earthquake notications. You will store watchers on the list in
 the order that they arrive, and all processing to delete watchers or generate notications will be
 done by sequentially working through the list. (Note that in the second project, you will replace
@@ -42,17 +47,19 @@ time, it is easy to nd which records are old. But you will also need to have an
 those records in the heap. It is not sucient to do a sequential search through the heap's array to
 nd the records. Since an array for the heap needs to be allocated at the start of the program, you
 will use a size of 1000. We will never test with more than 1000 unique earthquakes.
+
 Event Processing:
-Your two data steams (the earthquake records and the user requests) each have timestamped
+
+  Your two data steams (the earthquake records and the user requests) each have timestamped
 records. As the records come in, you will process the various events. When you process a new
-1
 watcher add request, the watcher is added to the watch list (and you print a suitable message to
 standard output). When you process a new watcher delete request, the watcher is removed from the
 watch list (and you print a suitable message to standard output). When you process a new \largest
 recent earthquake" query, you will output a copy of the information for the largest earthquake
 currently in the heap (it will be at the root since you are storing the records in a max-heap by
 magnitude).
-The earthquake data API might not work as you expect. It is not event driven. Instead, you
+
+  The earthquake data API might not work as you expect. It is not event driven. Instead, you
 must poll (every 5 minutes in simulation time), at which point you will receive a single record that
 contains all earthquakes from the past hour. So you will have to look at this list of earthquakes,
 and deduce which (if any) are actually new earthquakes. Any new earthquakes are then added
@@ -64,14 +71,17 @@ need to nd their position in the heap. You may not do this using sequential sea
 Instead, you must store and maintain in the earthquake record the heap position. All heap update
 methods must update this heap position appropriately when records are move around within the
 heap's array.
-In addition to updating the queue and the heap, you will also check against the watcher list
+
+  In addition to updating the queue and the heap, you will also check against the watcher list
 when you see a new earthquake. You will output notication messages for each watcher that is
 \close enough" to the earthquake. Each watcher record contains an (X, Y) position, as does the
 earthquake record. A watcher should receive a notication message if it is within a certain distance
 of the earthquake, as dened by the following formula: Distance < 2 Magnitude3. A notication
 is a suitable message sent to standard output.
+
 Program Invocation:
-The program will be invoked from the command line as:
+
+  The program will be invoked from the command line as:
 java EqSimple [--all] <watcher-file> <earthquake-stream>
 where --all is an optional parameter. If the --all parameter is given, then a suitable message
 is output for every earthquake processed. Otherwise, when the --all option is not given, you will
@@ -81,20 +91,22 @@ a notication.)
 The <earthquake-stream> parameter should either be the word live or a lename. If it is
 live, then your program should use the real-time data stream. Otherwise, it should use the given
 local le to simulate the real-time data stream.
+
 Data Streams:
-In order to access the earthquake data, you will be using a real-time Java library. This library
+
+  In order to access the earthquake data, you will be using a real-time Java library. This library
 (optionally) connects to a free, online Earthquake Service that provides structured data about
 earthquakes around the world (including their position and magnitude). The library and docu-
 mentation on how to use it is provided at http://mickey.cs.vt.edu/cs3114-earthquake/ This
 page also provides an API for processing the watcher data le, and discusses the polling process.
 In an ideal world, your program would receive events from the Earthquake service when a new
 earthquake takes place. However, in practice, this is not how most web services are built. Instead,
-your program (the client) must poll the service (the server). This means that once every ve
-2
+your program (the client) must poll the service (the server). This means that once every ve 2
 minutes, you will query the server for new information. This architecture is common, and used by
 most of the web applications that you see on a daily basis (including Facebook and most online
 email services).
-If you make queries|also called \requests"|too fast, the web service might decide you are
+
+  If you make queries|also called \requests"|too fast, the web service might decide you are
 spamming them and will ban you from their service. Additionally, network connections can be
 unstable, or you might have limited access to the web. Since this is inconvenient for development,
 the library provides the ability to connect to a local data le instead of the online real-time service.
@@ -104,8 +116,10 @@ for the earthquake stream and the watcher stream. You will want to make sure you
 program with dierent data sets. When developing, you can safely \poll" the data les as fast as
 you can process records, rather than putting in a delay on the polling rate that you will need for
 the real-time service.
+
 Output Format
-Since your programs will be automatically graded for correctness (with feedback returned to
+
+  Since your programs will be automatically graded for correctness (with feedback returned to
 you by Web-CAT), it is necessary that you follow this output format.
 1. When a watcher is added to the watch list, you should print out:
 <name> is added to the watchers list
@@ -168,58 +182,3 @@ grams, or the codebase provided by the instructor. Note that the textbook code i
 4
 for the specic purpose of this assignment, and is therefore likely to require modication. It may,
 however, provide a useful starting point.
-Deliverables:
-You will submit your project through the automated Web-CAT server. Links to the Web-CAT
-client are posted at the class website. If you make multiple submissions, only your last submission
-will be evaluated. There is no limit to the number of submissions that you may make.
-You are required to submit your own test cases with your program, and part of your grade will
-be determined by how well your test cases test your program, as dened by Web-CAT's evaluation
-of code coverage. Of course, your program must pass your own test cases. Part of your grade will
-also be determined by test cases that are provided by the graders. Web-CAT will report to you
-which test les have passed correctly, and which have not. Note that you will not be given a copy
-of grader's test les, only a brief description of what each accomplished in order to guide your own
-testing process in case you did not pass one of our tests.
-When structuring the source les of your project (be it in Eclipse as a \Managed Java Project,"
-or in another environment), use a 
-at directory structure; that is, your source les will all be
-contained in the project root. Any subdirectories in the project will be ignored. If you used a
-makele to compile your code, or otherwise did something that won't automatically compile in
-Eclipse, be sure to include any necessary les or instructions so that the TAs can compile it.
-If submitting through Eclipse, the format of the submitted archive will be managed for you. If
-you choose not to develop in Eclipse, you will submit either a ZIP-compressed archive (compatible
-with Windows ZIP tools or the Unix zip command) or else a tar'ed and gzip'ed archive. Either
-way, your archive should contain all of the source code for the project, along with any les or
-instructions necessary to compile the code. If you need to explain any pertinent information to aid
-the TA in the grading of your project, you may include an optional \readme" le in your submitted
-archive.
-You are permitted (and ecouraged) to work with a partner on this project. When you work with
-a partner, then only one member of the pair will make a submission. Be sure both names are
-included in the documentation. Whatever is the nal submission from either of the pair members
-is what we will grade unless you arrange otherwise with the GTA.
-Pledge:
-Your project submission must include a statement, pledging your conformance to the Honor
-Code requirements for this course. Specically, you must include the following pledge statement
-near the beginning of the le containing the function main() in your program. The text of the
-pledge will also be posted online.
-// On my honor:
-//
-// - I have not used source code obtained from another student,
-// or any other unauthorized source, either modified or
-// unmodified.
-//
-// - All source code and documentation used in my program is
-// either my original work, or was derived by me from the
-// source code published in the textbook for this course.
-5
-//
-// - I have not discussed coding details about this project with
-// anyone other than my partner (in the case of a joint
-// submission), instructor, ACM/UPE tutors or the TAs assigned
-// to this course. I understand that I may discuss the concepts
-// of this program with other students, and that another student
-// may help me debug my program so long as neither of us writes
-// anything during the discussion or modifies any computer file
-// during the discussion. I have violated neither the spirit nor
-// letter of this restriction.
-Programs that do not contain this pledge will not be graded.
-6
